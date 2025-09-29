@@ -131,5 +131,5 @@ Navigate to the pfSense WebGUI and add a new rule to block the malicious traffic
 * Forensic Analysis: Used Wireshark to monitor network traffic spikes and confirmed the effectiveness of the security policy via pfSense firewall logs.
 
 ## Reference
-[PFSENSE Firewall Home Lab](https://youtu.be/-yRvfbElT7M)
-[Deploying a Virtual pfSense Firewall](https://www.youtube.com/watch?v=BcdJbBAnAKo)
+* [PFSENSE Firewall Home Lab](https://youtu.be/-yRvfbElT7M)
+* [Deploying a Virtual pfSense Firewall](https://www.youtube.com/watch?v=BcdJbBAnAKo)
