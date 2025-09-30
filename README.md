@@ -85,6 +85,8 @@ Add a rule to the **WAN** interface to allow traffic from Kali to the Ubuntu vic
 
 <img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/kali_pfsense_ICMP.png'/>
 
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/kali_pfsense_ping.png'/>
+
 ### 2.4 Initial WAN Access Rule Ubuntu
 Add a rule to the **WAN** interface to allow traffic from Kali to the Ubuntu victim:
 * Navigate to **Firewall** -> **Rules** -> **WAN** -> **Add**
@@ -93,8 +95,6 @@ Add a rule to the **WAN** interface to allow traffic from Kali to the Ubuntu vic
 * Destination: Ubuntu LAN IP
 
 <img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/allow_TCP_ubuntu.png'/>
-
-<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/kali_pfsense_ping.png'/>
 
 ## Step 3: Routing and Connectivity Setup
 
