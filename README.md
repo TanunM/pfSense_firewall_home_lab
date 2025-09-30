@@ -45,15 +45,27 @@ The objective of this lab is to:
 
 ### 2.1 Interface Assignment and WAN Access
 1.  Boot pfSense and access the console menu.
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/pfsense_terminal.png'/>
+
 2.  Via the console, enter the shell (option 8) and temporarily disable the firewall to gain WebGUI access:
     ```bash
     pfsense -d
     ```
 3.  Access the WebGUI of pfSense using the WAN IP using default credentials (**admin / pfsense**).
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/pfsense_login.png'/>
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/pfsense_uncheck_defualt.png'/>
+
 4.  Navigate to **Firewall** -> **Rules** -> **WAN** -> **Add** and create a rule to allow GUI access from the home network:
     * Action: Pass, Protocol: TCP, Source: WebGUI IP.
     * Destination: pfsense WAN, Port: 443.
     * Apply and save the rule.
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/GUI_wan_rule.png'/>
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/GUI_ip.png'/>
 
 ### 2.2 Configure LAN DHCP
 1.  Navigate to **Services** -> **DHCP Server** -> **LAN**.
@@ -62,12 +74,27 @@ The objective of this lab is to:
 4.  DNS servers: home router IP
 5.  Save and Apply Changes.
 
-### 2.3 Initial WAN Access Rule
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/DHCP_server.png'/>
+
+### 2.3 Initial WAN Access Rule pfSense
+Add a rule to the **WAN** interface to allow traffic from Kali to the Ubuntu victim:
+* Navigate to **Firewall** -> **Rules** -> **WAN** -> **Add**
+* Action: Pass, Protocol: ICMP
+* Source: Kali Linux IP
+* Destination: pfSense IP
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/kali_pfsense_ICMP.png'/>
+
+### 2.4 Initial WAN Access Rule Ubuntu
 Add a rule to the **WAN** interface to allow traffic from Kali to the Ubuntu victim:
 * Navigate to **Firewall** -> **Rules** -> **WAN** -> **Add**
 * Action: Pass, Protocol: Any
 * Source: Kali Linux IP
 * Destination: Ubuntu LAN IP
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/allow_TCP_ubuntu.png'/>
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/kali_pfsense_ping.png'/>
 
 ## Step 3: Routing and Connectivity Setup
 
@@ -105,6 +132,8 @@ sudo hping3 --flood -S -p 80 192.168.1.100
 2. Attack Monitoring:
 View the Packets spike in Wireshark on the Ubuntu, confirming the DoS is successfully.
 
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/wireshark_DoS.png'/>
+
 ## Step 6: Firewall rule and Log Analysis
 1. Implementing the Block Rule:
 Navigate to the pfSense WebGUI and add a new rule to block the malicious traffic. This rule must be added as the TOP rule on the WAN interface to overrule "Allow" rules.
@@ -114,11 +143,17 @@ Navigate to the pfSense WebGUI and add a new rule to block the malicious traffic
   * Destination: 192.168.1.100
   * Log: check the box
   * Save and apply changes
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/kali_ubuntu_TCP.png'/>
+
 2. Verification and Log Check:
   * You will see that the traffic halts in Wireshark on the Ubuntu machine.
   * On the pfSense WebGUI, navigate to Status → System Logs → Firewall and view the logs.
   * You will see that the malicious flood traffic attempts are being logged and blocked by the new rule.
 
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/Dos_blocked.png'/>
+
+<img src='https://github.com/TanunM/pfSense_firewall_home_lab/blob/main/gallery/DoS_blocked_pfsense.png'/>
 
 ## Troubleshooting
 * Kali cannot ping Ubuntu: Check Static Route On the Kali, verify the static route is correctly added using the pfSense WAN IP as the gateway
